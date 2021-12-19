@@ -1,0 +1,21 @@
+
+//Проверяет, был ли прочитан массив из файла
+    public static void checkIfArrayIsNull(int[][] arr) throws Exception{
+        if (arr == null){
+            throw new Exception("Такой input-файл не существует");
+        }
+
+    }    
+
+
+
+
+
+     /**
+     * Сохраняет результат в файл
+     */	
+    public static void saveOutputIntoFile(String fileName, int result) throws FileNotFoundException {
+        try (PrintWriter out = new PrintWriter(fileName)) {
+            out.println(result);
+        }
+    }
