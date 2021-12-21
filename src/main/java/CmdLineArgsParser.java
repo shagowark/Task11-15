@@ -1,4 +1,3 @@
-package ConsoleModule;
 
 import java.util.Dictionary;
 import java.util.Hashtable;

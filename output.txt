@@ -10,8 +10,3 @@
 
 
 
-    public static void saveOutputIntoFile(String fileName, int result) throws FileNotFoundException {
-        try (PrintWriter out = new PrintWriter(fileName)) {
-            out.println(result);
-        }
-    }

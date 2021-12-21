@@ -57,7 +57,7 @@ class LogicTest {
 
         given.add("//asdajfsjka  fas ");
         given.add("while (scanner.hasNext()) {");
-        given.add("    line = //stangecomment scanner.nextLine();");
+        given.add("    line = /*stangecomment*/ scanner.nextLine();");
         given.add("}");
         given.add("/**** лафыфыллаыл");
         given.add("dasadfasfafs");
@@ -66,7 +66,7 @@ class LogicTest {
         given.add("//dassfdsa");
 
         expected.add("while (scanner.hasNext()) {");
-        expected.add("    line = //stangecomment scanner.nextLine();");
+        expected.add("    line = /*stangecomment*/ scanner.nextLine();");
         expected.add("}");
         expected.add("System.out.println() //sdadsasd");
 

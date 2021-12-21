@@ -12,7 +12,7 @@ public class Main {
     }
 
     private static void runInConsole (String[] args) throws Exception {
-        ConsoleModule.CmdLineArgsParser argsParser = new ConsoleModule.CmdLineArgsParser(args);
+        CmdLineArgsParser argsParser = new CmdLineArgsParser(args);
 
         String inputFilePath = argsParser.getArgumentValue("-i", "--input-file");
         String outputFilePath = argsParser.getArgumentValue("-o", "--output-file");
