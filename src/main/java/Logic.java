@@ -38,13 +38,9 @@ public class Logic {
 
             boolean skipLine = false;
             if (!multilineComm) {
-                int i = 0;
-                while (i < line.length() && line.charAt(i) == ' ') {
-                    i++;
-                }
-                if (line.substring(i).startsWith("//")) {
+                if (line.trim().startsWith("//")) {
                     skipLine = true;
-                } else if (line.substring(i).startsWith("/*")) {
+                } else if (line.trim().startsWith("/*")) {
                     multilineComm = true;
                     skipLine = true;
                 }
@@ -52,9 +48,12 @@ public class Logic {
                 if (!skipLine){
                     correctedLines.add(line);
                 }
-            } else{ //asdasd
+            } else{
                 if (line.trim().endsWith("*/")){
                     multilineComm = false;
+                } else if (line.contains("*/")) {
+                    multilineComm = false;
+                    correctedLines.add(line);
                 }
             }
         }
