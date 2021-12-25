@@ -1,13 +1,12 @@
 
+
     public static void checkIfArrayIsNull(int[][] arr) throws Exception{
         if (arr == null){
             throw new Exception("Такой input-файл не существует");
         }
 
-    }    
-
-
-
+    }
+     
 
 
      public static void saveOutputIntoFile(String fileName, int result) throws FileNotFoundException {

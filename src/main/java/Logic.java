@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Logic {
-    public static void correctProgramText(String fileNameInput, String fileNameOutput) throws Exception{
+    public static void correctProgramText(String fileNameInput, String fileNameOutput) throws Exception {
         ArrayList<String> programLines = new ArrayList<>(readLinesFromFile(fileNameInput));
         programLines = deleteComments(programLines);
         writeCorrectedProgram(programLines, fileNameOutput);
     }
 
-    public static ArrayList<String> readLinesFromFile(String fileName) throws Exception{
+    public static ArrayList<String> readLinesFromFile(String fileName) throws Exception {
         ArrayList<String> programLines = new ArrayList<>();
 
         Scanner scanner = new Scanner(new File(fileName), StandardCharsets.UTF_8);
@@ -30,40 +30,52 @@ public class Logic {
 
     }
 
-    public static ArrayList<String> deleteComments(ArrayList<String> programLines){
+    public static ArrayList<String> deleteComments(ArrayList<String> programLines) {
         ArrayList<String> correctedLines = new ArrayList<>();
 
-        boolean multilineComm = false;
-        for (String line : programLines){
+        boolean isInComm = false;
+        boolean isInString = false;
 
-            boolean skipLine = false;
-            if (!multilineComm) {
-                if (line.trim().startsWith("//")) {
-                    skipLine = true;
-                } else if (line.trim().startsWith("/*")) {
-                    multilineComm = true;
-                    skipLine = true;
+
+        for (String line : programLines) {
+            char prevChar = ' ';
+            StringBuilder lineSb = new StringBuilder();
+            for (char ch : line.toCharArray()) {
+                if (ch == '"' && prevChar != '\\') {
+                    isInString = !isInString;
                 }
 
-                if (!skipLine){
-                    correctedLines.add(line);
+                if (isInString) {
+                    lineSb.append(ch);
+                    continue;
+                } else {
+                    if (ch == '/' && prevChar == '/') {
+                        lineSb.deleteCharAt(lineSb.length()-1);
+                        break;
+                    } else if (ch == '*' && prevChar == '/') {
+                        lineSb.deleteCharAt(lineSb.length()-1);
+                        isInComm = true;
+                    } else if (ch == '/' && prevChar == '*') {
+                        isInComm = false;
+                        continue;
+                    }
                 }
-            } else{
-                if (line.trim().endsWith("*/")){
-                    multilineComm = false;
-                } else if (line.contains("*/")) {
-                    multilineComm = false;
-                    correctedLines.add(line);
+
+                if (!isInComm) {
+                    lineSb.append(ch);
                 }
+
+                prevChar = ch;
             }
+            correctedLines.add(lineSb.toString());
         }
 
         return correctedLines;
     }
 
-    public static void writeCorrectedProgram(ArrayList<String> programLines, String fileName) throws Exception{
+    public static void writeCorrectedProgram(ArrayList<String> programLines, String fileName) throws Exception {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-        for (String line : programLines){
+        for (String line : programLines) {
             writer.write(line + "\n");
             writer.flush();
         }
