@@ -47,6 +47,7 @@ public class Logic {
 
                 if (isInString) {
                     lineSb.append(ch);
+                    prevChar = ch;
                     continue;
                 } else {
                     if (ch == '/' && prevChar == '/') {

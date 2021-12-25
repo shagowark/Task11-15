@@ -160,7 +160,7 @@ class LogicTest {
         given.add(" /**** лафыфыллаыл");
         given.add("dasadfasfafs");
         given.add("asdas*/ ");
-        given.add("System.out.println(\"//asdada\") //sdadsasd");
+        given.add("System.out.println(\"//\\\"asdada\") //sdadsasd");
         given.add("//dassfdsa");
 
         expected.add("");
@@ -170,7 +170,7 @@ class LogicTest {
         expected.add(" ");
         expected.add("");
         expected.add(" ");
-        expected.add("System.out.println(\"//asdada\") ");
+        expected.add("System.out.println(\"//\\\"asdada\") ");
         expected.add("");
 
         Assertions.assertEquals(expected, Logic.deleteComments(given));
